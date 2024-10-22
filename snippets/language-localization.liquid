@@ -1,0 +1,54 @@
+{%- comment -%}
+  Renders the language picker as inline links instead of a dropdown.
+  
+  Accepts:
+    - localPosition: position of the form to ensure unique IDs.
+{%- endcomment -%}
+
+<div class="language-switcher">
+  {%- for language in localization.available_languages -%}
+    <a
+      class="language-link {% if language.iso_code == localization.language.iso_code %}active{% endif %}"
+      href="#"
+      hreflang="{{ language.iso_code }}"
+      lang="{{ language.iso_code }}"
+      data-value="{{ language.iso_code }}"
+    >
+      {{ language.iso_code | slice: 0, 2 | upcase }}
+    </a>
+  {%- endfor -%}
+</div>
+
+<input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}">
+
+
+{% style %}
+  .language-switcher {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .language-link {
+    text-decoration: none;
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+  }
+  
+  .language-link:hover {
+    color: #f0f0f0;
+  }
+  
+  .language-link.active {
+    font-weight: 600;
+    font-size: 17px;
+  }
+  
+  .separator {
+    color: white;
+    opacity: 0.6;
+  }
+{% endstyle %}

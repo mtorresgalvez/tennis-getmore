@@ -1,0 +1,65 @@
+{{ 'custom-promo-section.css' | asset_url | stylesheet_tag }}
+
+<div class="promo-section">
+  <div class="promo-grid">
+    <!-- Izquierda: Encabezado pequeño -->
+    <div class="left">
+      <p class="small-heading">{{ section.settings.small_heading }}</p>
+    </div>
+
+    <!-- Centro: Encabezado grande y descripción -->
+    <div class="center">
+      <h1 class="large-heading">{{ section.settings.large_heading }}</h1>
+      <p class="description">{{ section.settings.description }}</p>
+    </div>
+
+    <!-- Derecha: Botón -->
+    <div class="right">
+      <a href="{{ section.settings.button_link }}" class="button custom-button">
+        {{ section.settings.button_label }}
+        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="6" viewBox="0 0 23 6">
+          <path fill="#29304A" fill-rule="evenodd" d="M22.908 2.7L20.428.128a.39.39 0 0 0-.579 0 .425.425 0 0 0 0 .6l1.778 1.843H.413C.165 2.57 0 2.74 0 3c0 .257.165.428.413.428h21.213l-1.779 1.844a.425.425 0 0 0 0 .6.44.44 0 0 0 .29.128.44.44 0 0 0 .289-.129l2.48-2.572a.531.531 0 0 0 .002-.6z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Promo Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "small_heading",
+      "label": "Encabezado pequeño"
+    },
+    {
+      "type": "textarea",
+      "id": "large_heading",
+      "label": "Encabezado grande"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripción"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace del botón"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sección de promoción personalizada",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

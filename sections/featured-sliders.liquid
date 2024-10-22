@@ -1,0 +1,99 @@
+{{ 'section-featured-sliders.css' | asset_url | stylesheet_tag }}
+
+<div class="featured-sliders-container">
+  <div class="carousel-left">
+    <div class="slider-wrapper">
+      {% for block in section.blocks %}
+        <div class="slide">
+          {% if block.settings.slide_image %}
+            <img 
+              src="{{ block.settings.slide_image | image_url: width: 720, height: 720 }}" 
+              alt="Image Slide" 
+              width="720" 
+              height="720"
+            >
+          {% else %}
+            <p>No hay imagen disponible</p>
+          {% endif %}
+          <div class="slider-text">
+            <h2 class="slider-title">{{ block.settings.title }}</h2>
+            <p class="slider-description">{{ block.settings.description }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="carousel-right">
+    <div class="product-slider-wrapper">
+      {% assign collection_handle = section.settings.product_collection %}
+      {% if collection_handle != blank %}
+        {% assign collection = collections[collection_handle] %}
+        {% for product in collection.products %}
+          <div class="product-item">
+            <a href="{{ product.url }}">
+              <p class="number">
+                <span class="item-number">{{ forloop.index }}</span>
+              </p>
+              {% if product.featured_image %}
+                <img 
+                  src="{{ product.featured_image | image_url: width: 360, height: 360 }}" 
+                  alt="{{ product.title }}" 
+                  width="360" 
+                  height="360"
+                >
+                
+              {% else %}
+                <p>Imagen no disponible</p>
+              {% endif %}
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No se encontró la colección seleccionada.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured Sliders",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "product_collection",
+      "label": "Select Collection"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image_slide",
+      "name": "Image Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide Image"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
